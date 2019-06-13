@@ -1,0 +1,70 @@
+﻿
+@model BankCollection<News>
+
+@using Domain.ViewModels
+@using Infrastructure.Entities
+
+@{
+    var totalPages = 1 + Math.Floor((double)Model.TotalItems / Model.PageSize);
+}
+<div class="row">
+    <div class="col-lg-3 col-12 mb-3 order-lg-1">
+        <ul class="list-group">
+            @foreach (var news in Model.Collection)
+            {
+                <li class="list-group-item">
+                    <a href="@("#news" + news.Id)">@news.Title</a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="col-lg-9 col-12 mb-3 order-lg-2">
+        @foreach (var newsItem in Model.Collection)
+        {
+            <div class="card mb-3" id="news@(newsItem.Id)">
+                <img src="@newsItem.ImageUrl" class="card-img-top" alt="Картинка недоступна">
+                <div class="card-body">
+                    <h5 class="card-title">@newsItem.Title</h5>
+                    <p class="card-text">@newsItem.Content</p>
+                </div>
+            </div>
+        }
+
+        @using (Ajax.BeginForm("News", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "news" }, new { @id = "newsForm" }))
+        {
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item @(Model.PageIndex == 1 ? "disabled" : "")">
+                        <a class="page-link" href="#" onclick="pageChange(@(Model.PageIndex - 1))">Previous</a>
+                    </li>
+
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <li class="page-item @(Model.PageIndex == i ? "active" : "")">
+                            <a class="page-link" href="#" onclick="pageChange(@i)">@i</a>
+                        </li>
+                    }
+
+                    <li class="page-item @(Model.PageIndex == totalPages ? "disabled" : "")">
+                        <a class="page-link" href="#" onclick="pageChange(@(Model.PageIndex + 1))">Next</a>
+                    </li>
+                </ul>
+            </nav>
+
+            @Html.Hidden("pageIndex", Model.PageIndex);
+            @Html.Hidden("pageSize", Model.PageSize)
+        }
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+    });
+
+    function pageChange(page) {
+        $("#pageIndex").val(page);
+        $("#newsForm").submit();
+    }
+</script>

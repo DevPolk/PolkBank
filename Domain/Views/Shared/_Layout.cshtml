@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">Polk Bank</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href=""></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account">Войти</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" aria-label="Search">
+                    <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bank-header d-flex justify-content-center align-items-center flex-column">
+        <h1 class="display-2">Выгодные вложения на депозит</h1>
+        <p class="lead">
+            Ежемесячные начисления до 13.99%
+        </p>
+    </header>
+
+    <main class="container">
+        @RenderBody()
+    </main>
+
+    <footer class="d-flex justify-content-center align-content-center mt-2 bank-footer text-center">
+        <div class="row w-100">
+            <div class="col-12">
+                <h6>Контакты</h6>
+                <address>
+                    <p>Почта: <a href="mailto:gpolkmail@gmail.com?subject=Contact">gpolkmail@gmail.com</a></p>
+                    <p>Рабочий телефон: +7(702)-315-18-32</p>
+                </address>
+                <small>&copy 2019 Polk Bank corp. Все права защищены</small>
+            </div>
+        </div>
+    </footer>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
